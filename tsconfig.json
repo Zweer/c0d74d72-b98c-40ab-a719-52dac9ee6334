@@ -12,6 +12,8 @@
     "baseUrl": "./",
     "incremental": true
   },
-  "include": ["src/**/*", "src/**/*.json"],
+  "include": ["src/**/*",
+    "src/config/**/*.json"
+  ],
   "exclude": ["node_modules", "dist"]
 }

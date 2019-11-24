@@ -1,6 +1,6 @@
 # Created by .ignore support plugin (hsz.mobi)
 ### Application
-config/Config.d.ts
+src/config/Config.d.ts
 dist
 
 ### Node template

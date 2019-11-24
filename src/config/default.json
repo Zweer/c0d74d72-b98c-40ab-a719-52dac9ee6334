@@ -1,5 +1,5 @@
 {
-  "env": "development",
+  "environment": "development",
 
   "server": {
     "port": "@@PORT"

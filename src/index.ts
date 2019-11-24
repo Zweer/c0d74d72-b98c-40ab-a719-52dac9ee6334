@@ -1,3 +1,7 @@
+import { join } from 'path';
+
+process.env.NODE_CONFIG_TS_DIR = join(__dirname, 'config');
+
 import { App } from './app';
 
 new App().listen()

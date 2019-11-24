@@ -4,7 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "postinstall": "node-config-ts",
+    "postinstall": "NODE_CONFIG_TS_DIR=src/config node-config-ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
     "test": "mocha --require ts-node/register --require test/setup/env.ts test/**/*.ts"
   },
   "devDependencies": {
