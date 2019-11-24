@@ -1,0 +1,140 @@
+openapi: 3.0.1
+info:
+  title: SiamoSoci - Trial
+  description: 'This is a simplpe server that serves some weather APIs'
+  contact:
+    email: n.olivieriachille@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+  - url: https://siamosoci-trial.herokuapp.com
+tags:
+  - name: weather
+    description: Everything about weather
+    externalDocs:
+      description: Using this APIs
+      url: https://openweathermap.org/
+paths:
+  /api/weather/current/{city}:
+    get:
+      tags:
+        - weather
+      summary: Retrieves current weather for your city
+      operationId: getCurrentWeather
+      parameters:
+        - name: city
+          in: path
+          description: The city for which you want current weather
+          required: true
+          schema:
+            $ref: '#/components/schemas/CityRequestParam'
+      responses:
+        200:
+          description: Current weather
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurrentWeatherResponse'
+        404:
+          description: Cannot find the specified city
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CityNotFoundErrorResponse'
+  /api/weather/temperature/average:
+    get:
+      tags:
+        - weather
+      summary: Retrieves the average temperature amoung cities, the max one and the max humidity
+      operationId: getTemperatureAverage
+      responses:
+        200:
+          description: The average temperature
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TemperatureAverageResponse'
+  /api/weather/forecast/{city}:
+    get:
+      tags:
+        - weather
+      summary: Retrieves forecast for the next 5 days
+      operationId: getForecastWeather
+      parameters:
+        - name: city
+          in: path
+          description: The city for which you want forecast
+          required: true
+          schema:
+            $ref: '#/components/schemas/CityRequestParam'
+      responses:
+        200:
+          description: Forecast
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForecastWeatherResponse'
+        404:
+          description: Cannot find the specified city
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CityNotFoundErrorResponse'
+components:
+  schemas:
+    CityRequestParam:
+      type: string
+      enum: [milan, new york, sydney]
+    CurrentWeatherResponse:
+      properties:
+        currentWeather:
+          type: string
+          example: "Rain: light rain"
+    ForecastWeatherResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/ForecastWeatherItemResponse'
+    ForecastWeatherItemResponse:
+      properties:
+        temp:
+          type: number
+          format: double
+          example: 11.53
+        tempMin:
+          type: number
+          format: double
+          example: 11.51
+        tempMax:
+          type: number
+          format: double
+          example: 11.57
+        pressure:
+          type: integer
+          example: 1004
+        humidity:
+          type: integer
+          example: 77
+    CityNotFoundErrorResponse:
+      properties:
+        message:
+          type: string
+          example: City "dublin" not found
+    TemperatureAverageResponse:
+      properties:
+        tempAvg:
+          type: number
+          format: double
+        humidityMax:
+          $ref: '#/components/schemas/MaxObj'
+        tempMax:
+          $ref: '#/components/schemas/MaxObj'
+    MaxObj:
+      properties:
+        city:
+          type: string
+          example: Milan
+        value:
+          type: number
+          example: 1004

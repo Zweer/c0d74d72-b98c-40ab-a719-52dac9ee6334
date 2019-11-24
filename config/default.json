@@ -1,0 +1,33 @@
+{
+  "env": "development",
+
+  "server": {
+    "port": "@@PORT"
+  },
+
+  "log": {
+    "level": "silly",
+    "silent": false,
+    "stderrLevels": ["error", "debug"],
+
+    "labels": [
+      "default",
+      "server",
+      "request",
+      "weather"
+    ]
+  },
+
+  "weather": {
+    "cities": ["sydney", "milan", "new york"],
+
+    "key": "5c0795edde3a5949fd1a9e131931674b",
+    "baseUrl": "api.openweathermap.org/data",
+    "version": "2.5",
+
+    "endpoints": {
+      "current": "weather",
+      "forecast": "forecast"
+    }
+  }
+}
